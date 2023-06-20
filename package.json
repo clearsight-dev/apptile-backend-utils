@@ -1,6 +1,6 @@
 {
   "name": "apptile-backend-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Apptile Backend Common Utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
