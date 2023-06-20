@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {NAMESPACE_LOG_TRACE_HEADER_NAME} from '../constants';
-import {getTracingId} from '../middleware/httpRequestTracer';
+import {getTracingId} from '../utils/requestTracer';
 
 export default class Api {
   static setTraceHeader(config: Partial<AxiosRequestConfig>) {
