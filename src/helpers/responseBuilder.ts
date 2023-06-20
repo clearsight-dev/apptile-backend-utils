@@ -23,6 +23,14 @@ export default class ResponseBuilder {
     jsonResponse(res, 201, data);
   }
 
+  static NotModified<T>(res: express.Response, message?: string) {
+    jsonResponse(res, 304, message ? message : 'Not Modified');
+  }
+
+  static CustomSuccessResponse<T>(res: express.Response, code: number, message?: string) {
+    jsonResponse(res, code, message ? message : 'Success');
+  }
+
   static Unauthorized(res: express.Response, message?: string) {
     return jsonErrorResponse(res, 401, message ? message : 'Unauthorized');
   }
