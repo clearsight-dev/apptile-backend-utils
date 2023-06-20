@@ -3,7 +3,7 @@ import logger from '../utils/logger';
 import {ResponseBuilder} from '../helpers';
 import {CustomHttpRequestError} from '../types';
 
-export const defaultErrorHandler = async (
+const defaultErrorHandler = async (
   ex: Error,
   req: express.Request,
   res: express.Response,
@@ -21,3 +21,5 @@ export const defaultErrorHandler = async (
     ResponseBuilder.InternalServerError(res, 'internal server error');
   }
 };
+
+export default defaultErrorHandler;

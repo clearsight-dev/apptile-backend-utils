@@ -8,7 +8,7 @@ import {
 } from '../constants';
 const requestTracingNamespace = cls.createNamespace(NAMESPACE_LOG_TRACE);
 
-export default async function requestTracerMiddleware(
+export default async function httpRequestTracer(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction

@@ -6,7 +6,7 @@ const stream = {
   write: (message: any) => logger.http(message)
 };
 
-const morganMiddleware = morgan(
+const requestLogger = morgan(
   // Define message format string (this is the default one).
   // The message format is made from tokens, and each token is
   // defined inside the Morgan library.
@@ -16,4 +16,4 @@ const morganMiddleware = morgan(
   // See the methods above.
   {stream}
 );
-export default morganMiddleware;
+export default requestLogger;

@@ -1,5 +1,5 @@
 import winston from 'winston';
-import {getTracingId} from '../middleware/requestTracingMiddleware';
+import {getTracingId} from '../middleware/httpRequestTracer';
 import {config} from '../config';
 // Define your severity levels.
 // With them, You can create log files,
