@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "npx ts-node test.ts",
+    "dev": "npx ts-node index.ts",
     "watch": "tsc -w",
     "start": "nodemon",
-    "start:dev": "tsc -p tsconfig.json && nodemon dist/test.js",
+    "start:dev": "tsc -p tsconfig.json && nodemon dist/index.js",
     "build": "tsc -p tsconfig.json",
     "prepare": "npm run build",
     "lint": "eslint src --ext .ts",
