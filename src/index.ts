@@ -9,7 +9,9 @@ import {
   requestTracingNamespace,
   getTracingId,
   setTracingId,
-  generateTraceId
+  generateTraceId,
+  setValueInNamespace,
+  getValueFromNamespace
 } from './utils/requestTracer';
 
 export {
@@ -23,5 +25,7 @@ export {
   requestTracingNamespace,
   getTracingId,
   setTracingId,
-  generateTraceId
+  generateTraceId,
+  setValueInNamespace,
+  getValueFromNamespace
 };
