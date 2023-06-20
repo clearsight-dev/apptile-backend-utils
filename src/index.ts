@@ -1,4 +1,5 @@
 import Api from './api/Api';
+import {NAMESPACE_LOG_TRACE_EVENT_GUID_KEY} from './constants';
 import {ResponseBuilder} from './helpers';
 import defaultErrorHandler from './middleware/errorHandler';
 import httpRequestTracer from './middleware/httpRequestTracer';
@@ -27,5 +28,6 @@ export {
   setTracingId,
   generateTraceId,
   setValueInNamespace,
-  getValueFromNamespace
+  getValueFromNamespace,
+  NAMESPACE_LOG_TRACE_EVENT_GUID_KEY
 };
