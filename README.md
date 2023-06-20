@@ -1,6 +1,6 @@
-# Apptile-message-broker
+# apptile-backend-utils
 
-Apptile-backend-utils is a collection of all common components which are used across all backend services.
+apptile-backend-utils is a collection of all common components which are used across all backend services.
 
 ##
 Recommended npm and node versions
