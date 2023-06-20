@@ -5,6 +5,12 @@ import httpRequestTracer from './middleware/httpRequestTracer';
 import requestLogger from './middleware/requestLogger';
 import {CustomHttpRequestError} from './types';
 import logger from './utils/logger';
+import {
+  requestTracingNamespace,
+  getTracingId,
+  setTracingId,
+  generateTraceId
+} from './utils/requestTracer';
 
 export {
   Api,
@@ -13,5 +19,9 @@ export {
   httpRequestTracer,
   requestLogger,
   CustomHttpRequestError,
-  logger
+  logger,
+  requestTracingNamespace,
+  getTracingId,
+  setTracingId,
+  generateTraceId
 };

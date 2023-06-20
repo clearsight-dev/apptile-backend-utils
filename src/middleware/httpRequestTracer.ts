@@ -1,12 +1,6 @@
 import express from 'express';
-import {v4 as uuidv4} from 'uuid';
-import cls from 'cls-hooked';
-import {
-  NAMESPACE_LOG_TRACE,
-  NAMESPACE_LOG_TRACE_HEADER_NAME,
-  NAMESPACE_LOG_TRACE_KEY
-} from '../constants';
-const requestTracingNamespace = cls.createNamespace(NAMESPACE_LOG_TRACE);
+import {NAMESPACE_LOG_TRACE_HEADER_NAME} from '../constants';
+import {generateTraceId, requestTracingNamespace, setTracingId} from '../utils/requestTracer';
 
 export default async function httpRequestTracer(
   req: express.Request,
@@ -16,15 +10,11 @@ export default async function httpRequestTracer(
   requestTracingNamespace.bindEmitter(req);
   requestTracingNamespace.bindEmitter(res);
 
-  const tracingId = req.header(NAMESPACE_LOG_TRACE_HEADER_NAME) || uuidv4();
+  const tracingId = req.header(NAMESPACE_LOG_TRACE_HEADER_NAME) || generateTraceId();
   res.set(NAMESPACE_LOG_TRACE_HEADER_NAME, tracingId);
 
   requestTracingNamespace.run(() => {
-    requestTracingNamespace.set(NAMESPACE_LOG_TRACE_KEY, tracingId);
+    setTracingId(tracingId);
     next();
   });
 }
-
-export const getTracingId = () => {
-  return requestTracingNamespace?.get(NAMESPACE_LOG_TRACE_KEY);
-};
