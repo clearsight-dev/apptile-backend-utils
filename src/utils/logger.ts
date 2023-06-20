@@ -1,6 +1,7 @@
 import winston from 'winston';
 import {config} from '../config';
-import {getTracingId} from './requestTracer';
+import {getTracingId, getValueFromNamespace} from './requestTracer';
+import {NAMESPACE_LOG_TRACE_EVENT_GUID_KEY} from '../constants';
 // Define your severity levels.
 // With them, You can create log files,
 // see or hide levels based on the running ENV.
@@ -42,9 +43,10 @@ const format = winston.format.combine(
   // Define the format of the message showing the timestamp, the level and the message
   winston.format.printf((info) => {
     const tracingId = getTracingId(); // Same as requestTracingNamespace.get(tracingIdContextKeyName);
-    return `${info.timestamp} ${info.level} ${tracingId || '-'}: ${info.message} ${
-      info.stack ?? ''
-    }`;
+    const eventGuid = getValueFromNamespace(NAMESPACE_LOG_TRACE_EVENT_GUID_KEY);
+    return `${info.timestamp} ${info.level} ${tracingId || '-'} ${
+      eventGuid ? 'eventGuid:' + eventGuid : ''
+    }: ${info.message} ${info.stack ?? ''}`;
   })
 );
 

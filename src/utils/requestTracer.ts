@@ -15,3 +15,11 @@ export const getTracingId = () => {
 export const setTracingId = (traceId: string) => {
   return requestTracingNamespace?.set(NAMESPACE_LOG_TRACE_KEY, traceId);
 };
+
+export const getValueFromNamespace = (key: string) => {
+  return requestTracingNamespace?.get(key);
+};
+
+export const setValueInNamespace = (key: string, value: string) => {
+  return requestTracingNamespace?.set(key, value);
+};
