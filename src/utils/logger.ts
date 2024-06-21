@@ -36,7 +36,11 @@ winston.addColors(colors);
 // Custom format to output JSON logs
 const format = winston.format.combine(
   winston.format.errors({ stack: true }),
+
+  // Add the message timestamp with the preferred format
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+
+  // Define the format of the message showing the timestamp, the level and the message
   winston.format.printf((info) => {
     const tracingId = getTracingId(); // Same as requestTracingNamespace.get(tracingIdContextKeyName);
     const eventGuid = getValueFromNamespace(NAMESPACE_LOG_TRACE_EVENT_GUID_KEY);
@@ -53,8 +57,15 @@ const format = winston.format.combine(
 
 // Define which transports the logger must use to print out messages.
 const transports = [
-  // Allow the use of the console to print the messages
-  new winston.transports.Console()
+
+  // Allow the use the console to print the messages
+  new winston.transports.Console({
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.simple()
+    )
+  })
+
 ];
 
 // Create the logger instance that has to be exported
