@@ -1,7 +1,8 @@
 import winston from 'winston';
-import {config} from '../config';
-import {getTracingId, getValueFromNamespace} from './requestTracer';
-import {NAMESPACE_LOG_TRACE_EVENT_GUID_KEY} from '../constants';
+import { config } from '../config';
+import { getTracingId, getValueFromNamespace } from './requestTracer';
+import { NAMESPACE_LOG_TRACE_EVENT_GUID_KEY } from '../constants';
+
 // Define your severity levels.
 // With them, You can create log files,
 // see or hide levels based on the running ENV.
@@ -27,32 +28,32 @@ const colors = {
   http: 'magenta',
   debug: 'blue'
 };
+
 // Tell winston that you want to link the colors
 // defined above to the severity levels.
 winston.addColors(colors);
 
-// Chose the aspect of your log customizing the log format.
+// Custom format to output JSON logs
 const format = winston.format.combine(
-  winston.format.errors({stack: true}),
-
-  // Add the message timestamp with the preferred format
-  winston.format.timestamp({format: 'YYYY-MM-DD HH:mm:ss:ms'}),
-  // Tell Winston that the logs must be colored
-  winston.format.colorize({all: true}),
-
-  // Define the format of the message showing the timestamp, the level and the message
+  winston.format.errors({ stack: true }),
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.printf((info) => {
     const tracingId = getTracingId(); // Same as requestTracingNamespace.get(tracingIdContextKeyName);
     const eventGuid = getValueFromNamespace(NAMESPACE_LOG_TRACE_EVENT_GUID_KEY);
-    return `${info.timestamp} ${info.level} ${tracingId || '-'} ${
-      eventGuid ? 'eventGuid:' + eventGuid : ''
-    }: ${info.message} ${info.stack ?? ''}`;
+    return JSON.stringify({
+      timestamp: info.timestamp,
+      level: info.level,
+      tracingId: tracingId || '-',
+      eventGuid: eventGuid || '',
+      message: info.message,
+      stack: info.stack || ''
+    });
   })
 );
 
 // Define which transports the logger must use to print out messages.
 const transports = [
-  // Allow the use the console to print the messages
+  // Allow the use of the console to print the messages
   new winston.transports.Console()
 ];
 
